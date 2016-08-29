@@ -14,11 +14,14 @@ public class WhenWorkingWithAListOfPets {
     @Test
     public void should_store_a_list_of_pets() {
 
+    	//SET
         List<Pet> pets = new ArrayList<>();
 
+        //WHEN
         pets.add(Pet.cat().named("Felix"));
         pets.add(Pet.dog().named("Fido"));
 
+        //THEN
         // TODO: Implement the equals and hashcode methods in the Pet class to make this work
         assertThat(pets, hasItem(Pet.dog().named("Fido")));
     }

@@ -1,42 +1,55 @@
 package serenitylabs.tutorials.vetclinic.collections.katas;
 
-import com.google.common.collect.ImmutableList;
-import serenitylabs.tutorials.vetclinic.Breed;
-import serenitylabs.tutorials.vetclinic.Pet;
+import java.util.HashSet;
+import java.util.Set;
+import java.util.stream.Collectors;
 
-import java.util.List;
-import java.util.Random;
+import serenitylabs.tutorials.vetclinic.Pet;
 
 /**
  * A utility class to generate pet hotels with pets already booked
  */
 public class APetHotel {
-    public static PetAdder with(int petCount) {
-        return new PetAdder(petCount);
+
+	private static String name;
+	private Set<Pet> pets = new HashSet<>();
+	
+	public String getName() {
+		return name;
+	}
+
+	public Set<Pet> getPets() {
+		return pets;
+	}
+	
+    public APetHotel(String name) {
+         this.name = name;
     }
 
-    public static class PetAdder {
-        private final int petCount;
+	
 
-        public PetAdder(int petCount) {
+	public APetHotel( Set<Pet> pets2 ) {
+		pets.addAll( pets2 );
+	}
 
-            this.petCount = petCount;
-        }
+	public APetHotel checkIN(Set<Pet> pets2) {
+		return new APetHotel(pets2);
+	}
 
-        private Pet somePet(int petCount) {
-            return new Pet(someName(petCount), someBreed());
-        }
 
-        private final static Random random = new Random();
+	public void sort() {
+		pets = pets.stream().sorted((Pet o1, Pet o2)->o1.getName().compareTo(o2.getName())).collect(Collectors.toSet());
+	}
 
-        private Breed someBreed() {
-            return Breed.values()[ random.nextInt(Breed.values().length) ];
-        }
+    public static AHotelBuilder aHotel( ) {
+        return new AHotelBuilder();
+    }
+    
+    public static class AHotelBuilder {
 
-        private final static List<String> PET_NAMES = ImmutableList.of("Fido","Felix","Rover","Spot");
-
-        private String someName(int petCount) {
-            return PET_NAMES.get(random.nextInt(PET_NAMES.size())) + " " + petCount;
-        }
+		public APetHotel named( String name ){
+    		return new APetHotel( name );
+    	}
+    	
     }
 }
