@@ -22,6 +22,11 @@ public class PetHotel {
         this.waitingList = waitingList;
     }
 
+    @Override
+    public String toString() {
+        return "a hotel named " + hotelName;
+    }
+
     public PetHotel(String name) {
         this(name, new GuestList(), new WaitingList());
     }

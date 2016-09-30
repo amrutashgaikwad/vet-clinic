@@ -1,6 +1,7 @@
 package serenitylabs.tutorials.vetclinic.model;
 
 import com.google.common.base.Objects;
+import net.serenitybdd.core.steps.Instrumented;
 
 public class Pet {
     private final String name;
@@ -33,7 +34,7 @@ public class Pet {
         }
 
         public Pet named(String name) {
-            return new Pet(name, breed);
+            return Instrumented.instanceOf(Pet.class).withProperties(name, breed);
         }
     }
 
